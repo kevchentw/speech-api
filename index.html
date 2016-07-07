@@ -119,12 +119,22 @@
                 }
             }
 
+            function update_start_btn(){
+                if(recognizing == true){
+                    $("#start").removeClass("btn-primary").addClass("btn-danger");
+                }
+                else{
+                    $("#start").removeClass("btn-danger").addClass("btn-primary");
+                }
+            }
+
             $("#start").click(function() {
                 if (recognizing == false) {
                     reset_recognition();
                     recognition.start();
                 } else {
                     console.log("still recognizing");
+                    recognition.stop();
                 }
             });
         }
