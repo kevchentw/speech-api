@@ -148,28 +148,6 @@
                 }
             });
 
-
-            function voice_only(target) {
-                var origin_val = "";
-                target.keypress(function(event) {
-                    // console.log($(this).val());
-                    // event.preventDefault();
-                    // event.stopPropagation();
-                    // alert("kp");
-                    // return false;
-                    // $(this).val("");
-                    $("#v-status").text("keypress");
-                });
-                target.bind("cut copy paste", function(event) {
-                    // console.log($(this).val());
-                    // event.preventDefault();
-                    // event.stopPropagation();
-                    // alert("ccp");
-                    // return false;
-                    // $(this).val("");
-                    $("#v-status").text("ccp");
-                });
-            }
             $(document).ready(function() {
                 $("#voice-only").keypress(function(event) {
                     event.preventDefault();
