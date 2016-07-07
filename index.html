@@ -28,7 +28,20 @@
                 <button type="button" class="btn btn-primary" id="start">開始辨識</button>
                 <span class="label label-success" id="status"></span>
             </form>
-
+        </div>
+        <div class="row" style="margin-top:10px">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">中間結果</h3>
+                </div>
+                <div class="panel-body" id="inter_rst_panel"></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">最終結果</h3>
+                </div>
+                <div class="panel-body" id="final_rst_panel"></div>
+            </div>
         </div>
     </div>
     <script>
@@ -50,6 +63,7 @@
             var inter_rst = [];
 
             recognition.onstart = function() {
+                reset_recognition();
                 recognizing = true;
                 console.log("recognition start");
                 $("#status").text("正在辨識");
@@ -66,21 +80,29 @@
                 console.log(event);
                 for (var i = event.resultIndex; i < event.results.length; i++) {
                     if (event.results[i].isFinal) {
-                        final_rst.append(event.results[i][0].transcript);
-                    } else {
-                        inter_rst.append(event.results[i][0].transcript);
-                    }
-                }
-
-            };
-
-            $("#start").click(function(){
-                if (recognizing==false) {
-                    recognition.start();
+                        final_rst.push(event.results[i][0].transcript);
+                        inter_rst_panel.text(inter_rst_panel.text() + "<br>" + event.results[i][0].transcript);
                 } else {
-                    console.log("still recognizing");
-                }
-            });
+                    inter_rst.push(event.results[i][0].transcript);
+                    final_rst_panel.text(final_rst_panel.text() + "<br>" + event.results[i][0].transcript);
+            }
+        }
+
+        };
+
+        function reset_recognition() {
+            final_rst = [];
+            inter_rst = [];
+            final_rst_panel.text("");
+            inter_rst_panel.text("");
+        }
+        $("#start").click(function() {
+            if (recognizing == false) {
+                recognition.start();
+            } else {
+                console.log("still recognizing");
+            }
+        });
         }
     </script>
 
