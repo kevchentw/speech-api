@@ -149,11 +149,14 @@
             });
 
             $(document).ready(function() {
+                console.log("ready");
                 $("#voice-only").keypress(function(event) {
+                    console.log("keypress init");
                     event.preventDefault();
                     return false;
                 });
                 $("#voice-only").bind("cut copy paste", function(event) {
+                    console.log("paste init");
                     event.preventDefault();
                     return false;
                 });
