@@ -171,7 +171,14 @@
                 });
             }
             $(document).ready(function() {
-                voice_only($("#voice-only"));
+                $("#voice-only").keypress(function(event) {
+                    event.preventDefault();
+                    return false;
+                });
+                $("#voice-only").bind("cut copy paste", function(event) {
+                    event.preventDefault();
+                    return false;
+                });
             });
         }
     </script>
