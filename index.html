@@ -147,15 +147,19 @@
                 }
             });
 
+
             function voice_only(target) {
+                var origin_val = "";
                 target.keypress(function(event) {
+                    console.log($(this).val());
                     event.preventDefault();
-                    return false;
-                    // console.log(event);
+                    event.stopPropagation();
+
                 });
-                target.bind("cut copy paste", function(e) {
-                    e.preventDefault();
-                    return false;
+                target.bind("cut copy paste", function(event) {
+                    console.log($(this).val());
+                    event.preventDefault();
+                    event.stopPropagation();
                 });
             }
             voice_only($("#voice-only"));
