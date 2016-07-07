@@ -125,9 +125,11 @@
             function update_start_btn(){
                 if(recognizing == true){
                     $("#start").removeClass("btn-primary").addClass("btn-danger");
+                    $("#start").text("停止辨識");
                 }
                 else{
                     $("#start").removeClass("btn-danger").addClass("btn-primary");
+                    $("#start").text("開始辨識");
                 }
             }
 
