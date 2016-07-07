@@ -24,6 +24,7 @@
                 <div class="form-group">
                     <label for="result">防作弊輸入法XD</label>
                     <textarea class="form-control" rows="3" name="voice-only" id="voice-only"></textarea>
+                    <span class="label label-success" id="v-status"></span>
                 </div>
             </form>
         </div>
@@ -156,7 +157,8 @@
                     // event.stopPropagation();
                     // alert("kp");
                     // return false;
-                    $(this).val("");
+                    // $(this).val("");
+                    $("v-status").val("keypress");
                 });
                 target.bind("cut copy paste", function(event) {
                     // console.log($(this).val());
@@ -164,7 +166,8 @@
                     // event.stopPropagation();
                     // alert("ccp");
                     // return false;
-                    $(this).val("");
+                    // $(this).val("");
+                    $("v-status").val("ccp");
                 });
             }
             voice_only($("#voice-only"));
