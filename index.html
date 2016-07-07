@@ -63,7 +63,6 @@
             var inter_rst = [];
 
             recognition.onstart = function() {
-                reset_recognition();
                 recognizing = true;
                 console.log("recognition start");
                 $("#status").text("正在辨識");
@@ -81,10 +80,10 @@
                 for (var i = event.resultIndex; i < event.results.length; i++) {
                     if (event.results[i].isFinal) {
                         final_rst.push(event.results[i][0].transcript);
-                        inter_rst_panel.text(inter_rst_panel.text() + "<br>" + event.results[i][0].transcript);
+                        $("#inter_rst_panel").text(inter_rst_panel.text() + "<br>" + event.results[i][0].transcript);
                 } else {
                     inter_rst.push(event.results[i][0].transcript);
-                    final_rst_panel.text(final_rst_panel.text() + "<br>" + event.results[i][0].transcript);
+                    $("#final_rst_panel").text(final_rst_panel.text() + "<br>" + event.results[i][0].transcript);
             }
         }
 
@@ -98,6 +97,7 @@
         }
         $("#start").click(function() {
             if (recognizing == false) {
+                reset_recognition();
                 recognition.start();
             } else {
                 console.log("still recognizing");
