@@ -72,17 +72,20 @@
 
             recognition.onstart = function() {
                 recognizing = true;
+                update_start_btn();
                 console.log("recognition start");
                 $("#status").text("正在辨識");
             };
 
             recognition.onend = function() {
                 recognizing = false;
+                update_start_btn();
                 console.log("recognition end");
             };
 
             recognition.onresult = function(event) {
                 console.log("recognition result");
+                update_start_btn();
                 $("#status").text("辨識完成");
                 console.log(event);
                 for (var i = event.resultIndex; i < event.results.length; i++) {
