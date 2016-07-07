@@ -150,10 +150,12 @@
             function voice_only(target) {
                 target.keypress(function(event) {
                     event.preventDefault();
+                    return false;
                     // console.log(event);
                 });
                 target.bind("cut copy paste", function(e) {
                     e.preventDefault();
+                    return false;
                 });
             }
             voice_only($("#voice-only"));
