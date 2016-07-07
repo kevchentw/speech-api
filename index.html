@@ -1,22 +1,84 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Title of the document</title>
+    <meta charset="UTF-8">
+    <title>均一英文口說測試</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/4.0.8/sweetalert2.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/4.0.8/sweetalert2.min.js"></script>
 </head>
 
 <body>
-    TEST
-    <script>
-        var recognition = new webkitSpeechRecognition();
-        recognition.lang = "en-US";
-        recognition.continuous = true;
-        recognition.interimResults = true;
-        recognition.onresult = function(event) { 
-              console.log(event) 
-          }
-          recognition.start();
 
+    <div class="container">
+        <div class="row">
+            <h1>英文口說練習</h1>
+        </div>
+        <div class="row">
+            <form>
+                <div class="form-group">
+                    <label for="result">辨識結果</label>
+                    <textarea class="form-control" rows="3" name="result"></textarea>
+                </div>
+                <button type="button" class="btn btn-primary" id="start">開始辨識</button>
+                <span class="label label-success" id="status"></span>
+            </form>
+
+        </div>
+    </div>
+    <script>
+        if (!('webkitSpeechRecognition' in window)) {
+            swal(
+                'Oops...',
+                'Something went wrong!',
+                'error'
+            )
+        } else {
+            var recognition = new webkitSpeechRecognition();
+            recognition.lang = "en-US";
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognizing = false;
+
+            var final_rst = [];
+            var inter_rst = [];
+
+            recognition.onstart = function() {
+                recognizing = true;
+                $("#status").text("正在辨識");
+            };
+
+            recognition.onend = function() {
+                recognizing = false;
+            };
+
+            recognition.onresult = function(event) {
+                $("#status").text("辨識完成");
+                console.log(event);
+                for (var i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        final_rst.append(event.results[i][0].transcript);
+                    } else {
+                        inter_rst.append(event.results[i][0].transcript);
+                    }
+                }
+
+            };
+
+            $("#start").click() {
+                if (recognizing) {
+                    recognition.start();
+                } else {
+                    console.log("still recognizing")
+                }
+            }
+        }
     </script>
 
 </body>
