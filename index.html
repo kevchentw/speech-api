@@ -27,6 +27,7 @@
                 </div>
                 <button type="button" class="btn btn-primary" id="start">開始辨識</button>
                 <span class="label label-success" id="status"></span>
+                <span class="label label-info" id="os"></span>
             </form>
         </div>
         <div class="row" style="margin-top:10px">
@@ -46,12 +47,19 @@
     </div>
     <script>
         if (!('webkitSpeechRecognition' in window)) {
-            swal(
-                'Oops...',
-                'Something went wrong!',
-                'error'
-            )
+            var os = getMobileOperatingSystem();
+            if(os == "iOS" || os == "Android"){
+                $("#os").text(os);
+            }
+            else{
+                swal(
+                    'Oops...',
+                    'Something went wrong!',
+                    'error'
+                )
+            }
         } else {
+            $("#os").text("Chrome");
             var recognition = new webkitSpeechRecognition();
             recognition.lang = "en-US";
             recognition.continuous = true;
@@ -82,29 +90,43 @@
                         final_rst.push(event.results[i][0].transcript);
                         $("#result").val(event.results[i][0].transcript);
                         $("#final_rst_panel").text(event.results[i][0].transcript);
+                    } else {
+                        inter_rst.push(event.results[i][0].transcript);
+                        $("#inter_rst_panel").text($("#inter_rst_panel").text() + ", " + event.results[i][0].transcript);
+                    }
+                }
+
+            };
+
+            function reset_recognition() {
+                final_rst = [];
+                inter_rst = [];
+                $("#inter_rst_panel").text("");
+                $("#final_rst_panel").text("");
+                $("#result").val("");
+            }
+
+            function getMobileOperatingSystem() {
+                var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
+                    return 'iOS';
+                }
+                else if (userAgent.match(/Android/i)) {
+                    return 'Android';
+                }
+                else {
+                    return 'unknown';
+                }
+            }
+
+            $("#start").click(function() {
+                if (recognizing == false) {
+                    reset_recognition();
+                    recognition.start();
                 } else {
-                    inter_rst.push(event.results[i][0].transcript);
-                    $("#inter_rst_panel").text($("#inter_rst_panel").text() + ", " + event.results[i][0].transcript);
-            }
-        }
-
-        };
-
-        function reset_recognition() {
-            final_rst = [];
-            inter_rst = [];
-            $("#inter_rst_panel").text("");
-            $("#final_rst_panel").text("");
-            $("#result").val("");
-        }
-        $("#start").click(function() {
-            if (recognizing == false) {
-                reset_recognition();
-                recognition.start();
-            } else {
-                console.log("still recognizing");
-            }
-        });
+                    console.log("still recognizing");
+                }
+            });
         }
     </script>
 
