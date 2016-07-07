@@ -151,18 +151,20 @@
             function voice_only(target) {
                 var origin_val = "";
                 target.keypress(function(event) {
-                    console.log($(this).val());
-                    event.preventDefault();
-                    event.stopPropagation();
-                    alert("kp");
-                    return false;
+                    // console.log($(this).val());
+                    // event.preventDefault();
+                    // event.stopPropagation();
+                    // alert("kp");
+                    // return false;
+                    $(this).val("");
                 });
                 target.bind("cut copy paste", function(event) {
-                    console.log($(this).val());
-                    event.preventDefault();
-                    event.stopPropagation();
-                    alert("ccp");
-                    return false;
+                    // console.log($(this).val());
+                    // event.preventDefault();
+                    // event.stopPropagation();
+                    // alert("ccp");
+                    // return false;
+                    $(this).val("");
                 });
             }
             voice_only($("#voice-only"));
