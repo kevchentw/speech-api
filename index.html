@@ -80,10 +80,10 @@
                 for (var i = event.resultIndex; i < event.results.length; i++) {
                     if (event.results[i].isFinal) {
                         final_rst.push(event.results[i][0].transcript);
-                        $("#inter_rst_panel").text($("#inter_rst_panel").text() + "<br>" + event.results[i][0].transcript);
+                        $("#final_rst_panel").text(event.results[i][0].transcript);
                 } else {
                     inter_rst.push(event.results[i][0].transcript);
-                    $("#final_rst_panel").text($("#final_rst_panel").text() + "<br>" + event.results[i][0].transcript);
+                    $("#inter_rst_panel").text($("#inter_rst_panel").text() + ", " + event.results[i][0].transcript);
             }
         }
 
