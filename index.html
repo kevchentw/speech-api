@@ -154,6 +154,7 @@
                     console.log($(this).val());
                     event.preventDefault();
                     event.stopPropagation();
+                    alert("kp");
                     return false;
                 });
                 target.bind("cut copy paste", function(event) {
