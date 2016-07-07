@@ -155,12 +155,12 @@
                     event.preventDefault();
                     event.stopPropagation();
                     return false;
-
                 });
                 target.bind("cut copy paste", function(event) {
                     console.log($(this).val());
                     event.preventDefault();
                     event.stopPropagation();
+                    alert("ccp");
                     return false;
                 });
             }
