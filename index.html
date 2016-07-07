@@ -8,8 +8,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/sweetalert2/4.0.8/sweetalert2.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/sweetalert2/4.0.8/sweetalert2.min.js"></script>
 </head>
 
@@ -51,14 +51,17 @@
 
             recognition.onstart = function() {
                 recognizing = true;
+                console.log("recognition start");
                 $("#status").text("正在辨識");
             };
 
             recognition.onend = function() {
                 recognizing = false;
+                console.log("recognition end");
             };
 
             recognition.onresult = function(event) {
+                console.log("recognition result");
                 $("#status").text("辨識完成");
                 console.log(event);
                 for (var i = event.resultIndex; i < event.results.length; i++) {
@@ -71,13 +74,13 @@
 
             };
 
-            $("#start").click() {
-                if (recognizing) {
+            $("#start").click(function(){
+                if (recognizing==false) {
                     recognition.start();
                 } else {
-                    console.log("still recognizing")
+                    console.log("still recognizing");
                 }
-            }
+            });
         }
     </script>
 
