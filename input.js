@@ -80,30 +80,39 @@ if (!('webkitSpeechRecognition' in window)) {
             $("#start").text("開始辨識");
         }
     }
-    console.log(jQuery);
-    jQuery(window).load(function() {
-            console.log("ready");
-            alert("ready");
-            $("#start").click(function() {
-                console.log("click");
-                if (recognizing == false) {
-                    reset_recognition();
-                    recognition.start();
-                } else {
-                    console.log("still recognizing");
-                    recognition.stop();
-                }
-            });
-            $("#voice-only").on("keypress", function(event) {
-                console.log("keypress init");
-                event.preventDefault();
-                return false;
-            });
-            $("#voice-only").on("paste", function(event) {
-                console.log("paste init");
-                event.preventDefault();
-                return false;
-            });
-        }
-    )
+    // console.log(jQuery);
+
+    // document.getElementById('voice-only').on("keypress", function(event) {
+    //     console.log("keypress init");
+    //     event.preventDefault();
+    // }, false);
+    // document.getElementById('voice-only').on("paste", function(event) {
+    //     console.log("paste init");
+    //     event.preventDefault();
+    // }, false);
 }
+jQuery(window).load(function() {
+        console.log("ready");
+        alert("ready");
+        $("#start").click(function() {
+            console.log("click");
+            if (recognizing == false) {
+                reset_recognition();
+                recognition.start();
+            } else {
+                console.log("still recognizing");
+                recognition.stop();
+            }
+        });
+        $("#voice-only").on("keypress", function(event) {
+            console.log("keypress init");
+            event.preventDefault();
+            return false;
+        });
+        $("#voice-only").on("paste", function(event) {
+            console.log("paste init");
+            event.preventDefault();
+            return false;
+        });
+    }
+)
