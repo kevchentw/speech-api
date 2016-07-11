@@ -81,6 +81,7 @@ if (!('webkitSpeechRecognition' in window)) {
         }
     }
     jQuery(document).ready(function() {
+            console.log("ready");
             $("#start").click(function() {
                 console.log("click");
                 if (recognizing == false) {
