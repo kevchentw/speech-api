@@ -58,6 +58,7 @@ if (!('webkitSpeechRecognition' in window)) {
         $("#inter_rst_panel").text("");
         $("#final_rst_panel").text("");
         $("#result").val("");
+        update_start_btn();
     }
 
     function getMobileOperatingSystem() {
@@ -88,17 +89,16 @@ $(document).ready(function() {
                 reset_recognition();
                 recognition.start();
             } else {
-                console.log("still recognizing");
                 recognition.stop();
             }
         });
         $("#voice-only").on("keypress", function(event) {
-            console.log("keypress init");
+            console.log("keypress");
             event.preventDefault();
             return false;
         });
         $("#voice-only").on("paste", function(event) {
-            console.log("paste init");
+            console.log("paste");
             event.preventDefault();
             return false;
         });
