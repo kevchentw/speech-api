@@ -1,13 +1,17 @@
 if (!('webkitSpeechRecognition' in window)) {
     var os = getMobileOperatingSystem();
-    if (os == 'iOS' || os == 'Android') {
+    if (os == 'iOS') {
         $('#os').text(os);
+        $('#start').text('請使用 Chrome 語音輸入法');
+    } else if (os == 'Android') {
+        $('#os').text(os);
+        $('#start').text('請使用 Siri 語音輸入法');
     } else {
         swal(
             'Oops...',
             'Something went wrong!',
             'error'
-        )
+        );
     }
 } else {
     $('#os').text('Chrome');
@@ -61,17 +65,6 @@ if (!('webkitSpeechRecognition' in window)) {
         update_start_btn();
     }
 
-    function getMobileOperatingSystem() {
-        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        if (userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i)) {
-            return 'iOS';
-        } else if (userAgent.match(/Android/i)) {
-            return 'Android';
-        } else {
-            return 'unknown';
-        }
-    }
-
     function update_start_btn() {
         if (recognizing == true) {
             $('#start').removeClass('btn-primary').addClass('btn-danger');
@@ -96,17 +89,28 @@ function voice_only_textarea(obj) {
     });
 }
 
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if (userAgent.match(/iPad/i) ||
+        userAgent.match(/iPhone/i) ||
+        userAgent.match(/iPod/i)) {
+        return 'iOS';
+    } else if (userAgent.match(/Android/i)) {
+        return 'Android';
+    } else {
+        return 'unknown';
+    }
+}
 
 $(document).ready(function() {
-        $('#start').click(function() {
-            console.log('click');
-            if (recognizing == false) {
-                reset_recognition();
-                recognition.start();
-            } else {
-                recognition.stop();
-            }
-        });
-        voice_only_textarea($('#result'));
-    }
-);
+    $('#start').click(function() {
+        console.log('click');
+        if (recognizing == false) {
+            reset_recognition();
+            recognition.start();
+        } else {
+            recognition.stop();
+        }
+    });
+    voice_only_textarea($('#result'));
+});
