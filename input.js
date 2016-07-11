@@ -2,10 +2,12 @@ if (!('webkitSpeechRecognition' in window)) {
     var os = getMobileOperatingSystem();
     if (os == 'iOS') {
         $('#os').text(os);
-        $('#start').text('請使用 Chrome 語音輸入法');
+        $('#status').text('請使用 Siri 語音輸入法');
+        $('#start').hide();
     } else if (os == 'Android') {
         $('#os').text(os);
-        $('#start').text('請使用 Siri 語音輸入法');
+        $('#status').text('請使用 Chrome 語音輸入法');
+        $('#start').hide();
     } else {
         swal(
             'Oops...',
