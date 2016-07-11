@@ -1,5 +1,5 @@
+var os = getMobileOperatingSystem();
 if (!('webkitSpeechRecognition' in window)) {
-    var os = getMobileOperatingSystem();
     if (os == 'iOS') {
         $('#os').text(os);
         $('#status').text('請使用 Siri 語音輸入法');
@@ -16,7 +16,7 @@ if (!('webkitSpeechRecognition' in window)) {
         );
     }
 } else {
-    $('#os').text('Chrome');
+    $('#os').text(os);
     var recognition = new webkitSpeechRecognition();
     recognition.lang = 'en-US';
     recognition.continuous = false;
@@ -100,7 +100,7 @@ function getMobileOperatingSystem() {
     } else if (userAgent.match(/Android/i)) {
         return 'Android';
     } else {
-        return 'unknown';
+        return userAgent;
     }
 }
 
