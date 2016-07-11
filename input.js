@@ -107,6 +107,6 @@ $(document).ready(function() {
                 recognition.stop();
             }
         });
-        voice_only_textarea($('#voice-only'));
+        voice_only_textarea($('#result'));
     }
 );
