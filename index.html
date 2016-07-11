@@ -35,6 +35,7 @@
                     <textarea class="form-control" rows="3" name="result" id="result"></textarea>
                 </div>
                 <button type="button" class="btn btn-primary" id="start">開始辨識</button>
+                <button type="button" class="btn btn-primary" id="init">init</button>
                 <span class="label label-success" id="status"></span>
                 <span class="label label-info" id="os"></span>
             </form>
@@ -148,19 +149,30 @@
                 }
             });
 
-            $(window).load(function() {
+            function voice_only(){
                 console.log("ready");
-                $("#voice-only").keypress(function(event) {
+                // $("#voice-only").keypress(function(event) {
+                //     console.log("keypress init");
+                //     event.preventDefault();
+                //     return false;
+                // });
+                $("#voice-only").on("keypress", function(event) {
                     console.log("keypress init");
                     event.preventDefault();
                     return false;
                 });
-                $("#voice-only").bind("cut copy paste", function(event) {
+                $("#voice-only").on("paste", function(event) {
                     console.log("paste init");
                     event.preventDefault();
                     return false;
                 });
-            });
+                // $("#voice-only").bind("cut copy paste", function(event) {
+                //     console.log("paste init");
+                //     event.preventDefault();
+                //     return false;
+                // });
+            }
+            $("#init").click(voice_only());
         }
     </script>
 
