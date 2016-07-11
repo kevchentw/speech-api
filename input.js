@@ -80,6 +80,7 @@ if (!('webkitSpeechRecognition' in window)) {
             $("#start").text("開始辨識");
         }
     }
+    console.log(jQuery);
     jQuery(window).load(function() {
             console.log("ready");
             alert("ready");
