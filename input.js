@@ -1,7 +1,7 @@
 if (!('webkitSpeechRecognition' in window)) {
     var os = getMobileOperatingSystem();
-    if (os == "iOS" || os == "Android") {
-        $("#os").text(os);
+    if (os == 'iOS' || os == 'Android') {
+        $('#os').text(os);
     } else {
         swal(
             'Oops...',
@@ -10,9 +10,9 @@ if (!('webkitSpeechRecognition' in window)) {
         )
     }
 } else {
-    $("#os").text("Chrome");
+    $('#os').text('Chrome');
     var recognition = new webkitSpeechRecognition();
-    recognition.lang = "en-US";
+    recognition.lang = 'en-US';
     recognition.continuous = false;
     recognition.interimResults = true;
 
@@ -24,29 +24,29 @@ if (!('webkitSpeechRecognition' in window)) {
     recognition.onstart = function() {
         recognizing = true;
         update_start_btn();
-        console.log("recognition start");
-        $("#status").text("正在辨識");
+        console.log('recognition start');
+        $('#status').text('正在辨識');
     };
 
     recognition.onend = function() {
         recognizing = false;
         update_start_btn();
-        console.log("recognition end");
+        console.log('recognition end');
     };
 
     recognition.onresult = function(event) {
-        console.log("recognition result");
+        console.log('recognition result');
         update_start_btn();
-        $("#status").text("辨識完成");
+        $('#status').text('辨識完成');
         console.log(event);
         for (var i = event.resultIndex; i < event.results.length; i++) {
             if (event.results[i].isFinal) {
                 final_rst.push(event.results[i][0].transcript);
-                $("#result").val(event.results[i][0].transcript);
-                $("#final_rst_panel").text(event.results[i][0].transcript);
+                $('#result').val(event.results[i][0].transcript);
+                $('#final_rst_panel').text(event.results[i][0].transcript);
             } else {
                 inter_rst.push(event.results[i][0].transcript);
-                $("#inter_rst_panel").text($("#inter_rst_panel").text() + ", " + event.results[i][0].transcript);
+                $('#inter_rst_panel').text($('#inter_rst_panel').text() + ', ' + event.results[i][0].transcript);
             }
         }
 
@@ -55,9 +55,9 @@ if (!('webkitSpeechRecognition' in window)) {
     function reset_recognition() {
         final_rst = [];
         inter_rst = [];
-        $("#inter_rst_panel").text("");
-        $("#final_rst_panel").text("");
-        $("#result").val("");
+        $('#inter_rst_panel').text('');
+        $('#final_rst_panel').text('');
+        $('#result').val('');
         update_start_btn();
     }
 
@@ -74,17 +74,32 @@ if (!('webkitSpeechRecognition' in window)) {
 
     function update_start_btn() {
         if (recognizing == true) {
-            $("#start").removeClass("btn-primary").addClass("btn-danger");
-            $("#start").text("停止辨識");
+            $('#start').removeClass('btn-primary').addClass('btn-danger');
+            $('#start').text('停止辨識');
         } else {
-            $("#start").removeClass("btn-danger").addClass("btn-primary");
-            $("#start").text("開始辨識");
+            $('#start').removeClass('btn-danger').addClass('btn-primary');
+            $('#start').text('開始辨識');
         }
     }
 }
+
+function voice_only_textarea(obj) {
+    obj.on('keypress', function(event) {
+        console.log('keypress');
+        event.preventDefault();
+        return false;
+    });
+    obj.on('paste', function(event) {
+        console.log('paste');
+        event.preventDefault();
+        return false;
+    });
+}
+
+
 $(document).ready(function() {
-        $("#start").click(function() {
-            console.log("click");
+        $('#start').click(function() {
+            console.log('click');
             if (recognizing == false) {
                 reset_recognition();
                 recognition.start();
@@ -92,15 +107,6 @@ $(document).ready(function() {
                 recognition.stop();
             }
         });
-        $("#voice-only").on("keypress", function(event) {
-            console.log("keypress");
-            event.preventDefault();
-            return false;
-        });
-        $("#voice-only").on("paste", function(event) {
-            console.log("paste");
-            event.preventDefault();
-            return false;
-        });
+        voice_only_textarea($('#voice-only'));
     }
-)
+);
